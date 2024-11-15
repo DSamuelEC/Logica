@@ -61,6 +61,7 @@ public class PanelFormularioFinal extends JPanel {
 		cb4SI.setBounds(450, 200, 50, 50);
 		cb4NO = new JCheckBox("NO");
 		cb4NO.setBounds(510, 200, 50, 50);
+		cambiarChecks(cb4SI, cb4NO);
 		add(lbl4);
 		add(cb4SI);
 		add(cb4NO);
@@ -71,6 +72,7 @@ public class PanelFormularioFinal extends JPanel {
 		cb5SI.setBounds(450, 260, 50, 50);
 		cb5NO = new JCheckBox("NO");
 		cb5NO.setBounds(510, 260, 50, 50);
+		cambiarChecks(cb5SI, cb5NO);
 		add(lbl5);
 		add(cb5SI);
 		add(cb5NO);
@@ -81,6 +83,7 @@ public class PanelFormularioFinal extends JPanel {
 		cb6SI.setBounds(450, 320, 50, 50);
 		cb6NO = new JCheckBox("NO");
 		cb6NO.setBounds(510, 320, 50, 50);
+		cambiarChecks(cb6SI, cb6NO);
 		add(lbl6);
 		add(cb6SI);
 		add(cb6NO);
@@ -91,6 +94,7 @@ public class PanelFormularioFinal extends JPanel {
 		cb7SI.setBounds(450, 380, 50, 50);
 		cb7NO = new JCheckBox("NO");
 		cb7NO.setBounds(510, 380, 50, 50);
+		cambiarChecks(cb7SI, cb7NO);
 		add(lbl7);
 		add(cb7SI);
 		add(cb7NO);
@@ -101,19 +105,20 @@ public class PanelFormularioFinal extends JPanel {
 		cb8SI.setBounds(450, 440, 50, 50);
 		cb8NO = new JCheckBox("NO");
 		cb8NO.setBounds(510, 440, 50, 50);
+		cambiarChecks(cb8SI, cb8NO);
 		add(lbl8);
 		add(cb8SI);
 		add(cb8NO);
-
-		btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.setBounds(450, 500, 100, 30);
-		btnFinalizar.setActionCommand("BTN_FINALIZAR");
-		add(btnFinalizar);
 		
 		btnVolver = new JButton("Volver");
 		btnVolver.setBounds(20, 500, 100, 30);
 		btnVolver.setActionCommand("BTN_VOLVER");
 		add(btnVolver);
+		
+		btnFinalizar = new JButton("Finalizar");
+		btnFinalizar.setBounds(450, 500, 100, 30);
+		btnFinalizar.setActionCommand("BTN_FINALIZAR");
+		add(btnFinalizar);
 	}
 
 	public void cambiarChecks(JCheckBox checkSI, JCheckBox checkNO) {

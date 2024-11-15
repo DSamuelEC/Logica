@@ -17,7 +17,7 @@ public class PanelResultado extends JPanel {
 		setBackground(new Color(129, 246, 209)); // Fondo similar al de la imagen
 
 		inicializarComponentes();
-		setVisible(true);
+		setVisible(false);
 	}
 
 	public void inicializarComponentes() {
@@ -34,7 +34,6 @@ public class PanelResultado extends JPanel {
 		add(lblResultado);
 		
 		btnVolver = new JButton("Volver");
-
 		btnVolver.setBounds(240, 300, 120, 50);
 		add(btnVolver);
 	}
