@@ -1,17 +1,31 @@
 package co.edu.unbosque.model;
 
+import co.edu.unbosque.model.persistence.Archivo;
 import net.sourceforge.jFuzzyLogic.FIS;
 
 public class FuzzyModel {
 	private FIS fis;
 	private double resultado;
+	private Archivo arch;
+	private String texto;
 
 	public FuzzyModel(String fileName) {
 		fis = FIS.load(fileName, true);
+		arch = new Archivo();
+		System.out.println(texto);
 		if (fis == null) {
 			System.err.println("No se pudo cargar el archivo: " + fileName);
 			return;
 		}
+	}
+	
+	public String leerTxt() {
+		texto = arch.leerArchivo();
+		return texto;
+	}
+	
+	public String actualizarTxt(String frase) {
+		return arch.escribirArchivo(frase);
 	}
 
 	public String calcularCalidadSueno(double horasSueno, double tiempoConciliar, double sensacionDescanso,
@@ -37,6 +51,38 @@ public class FuzzyModel {
 			System.out.println(resultado);
 			return "Valor fuera del rango";
 		}
+	}
+
+	public FIS getFis() {
+		return fis;
+	}
+
+	public void setFis(FIS fis) {
+		this.fis = fis;
+	}
+
+	public double getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(double resultado) {
+		this.resultado = resultado;
+	}
+
+	public Archivo getArch() {
+		return arch;
+	}
+
+	public void setArch(Archivo arch) {
+		this.arch = arch;
+	}
+
+	public String getTexto() {
+		return texto;
+	}
+
+	public void setTexto(String texto) {
+		this.texto = texto;
 	}
 
 	@Override
