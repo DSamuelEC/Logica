@@ -1,0 +1,82 @@
+FUNCTION_BLOCK calidad_sueno
+
+VAR_INPUT
+    horas_sueno : REAL;
+    tiempo_conciliar : REAL;
+    sensacion_descanso : REAL;
+    puntos_preguntas : REAL;
+    edad : REAL;
+END_VAR
+
+VAR_OUTPUT
+    calidad_sueno : REAL;
+END_VAR
+
+FUZZIFY horas_sueno
+    TERM corto := (0, 1) (5, 1) (6, 0);
+    TERM adecuado := (5, 0) (6, 1) (8, 1) (9, 0);
+    TERM largo := (8, 0) (9, 1) (10, 1);
+END_FUZZIFY
+
+FUZZIFY tiempo_conciliar
+    TERM rapido := (0, 1) (10, 1) (15, 0);
+    TERM moderado := (10, 0) (15, 1) (30, 1) (35, 0);
+    TERM lento := (30, 0) (35, 1) (60, 1);
+END_FUZZIFY
+
+FUZZIFY sensacion_descanso
+    TERM muy_mal := (0, 1) (4, 1) (5, 0);
+    TERM regular := (4, 0) (5, 1) (7, 1) (8, 0);
+    TERM muy_bien := (7, 0) (8, 1) (10, 1);
+END_FUZZIFY
+
+FUZZIFY puntos_preguntas
+    TERM muy_mal := (0, 1) (4, 1) (5, 0);
+    TERM regular := (4, 0) (5, 1) (9, 1) (10, 0);
+    TERM muy_bien := (8, 0) (9, 1) (12, 1);
+END_FUZZIFY
+
+FUZZIFY edad
+    TERM joven := (0, 1) (21, 1) (22, 0);
+    TERM adulto := (21, 0) (22, 1) (65, 1) (66, 0);
+    TERM adulto_mayor := (65, 0) (66, 1) (100, 1);
+END_FUZZIFY
+
+DEFUZZIFY calidad_sueno
+    TERM muy_mala := (3, 1) (15, 1) (16, 0);
+    TERM mala := (16, 0) (23, 1) (24, 0);
+    TERM adecuada := (24, 0) (32, 1) (33, 0);
+    METHOD : COG;
+END_DEFUZZIFY
+
+RULEBLOCK No1
+    RULE 1 : IF horas_sueno IS corto AND edad IS joven THEN calidad_sueno IS muy_mala;
+    RULE 2 : IF horas_sueno IS corto AND edad IS adulto THEN calidad_sueno IS muy_mala;
+    RULE 3 : IF horas_sueno IS corto AND edad IS adulto_mayor THEN calidad_sueno IS muy_mala;
+    RULE 4 : IF horas_sueno IS adecuado THEN calidad_sueno IS adecuada;
+    RULE 5 : IF horas_sueno IS largo AND edad IS joven THEN calidad_sueno IS adecuada;
+    RULE 6 : IF horas_sueno IS largo AND edad IS adulto THEN calidad_sueno IS adecuada;
+    RULE 7 : IF horas_sueno IS largo AND edad IS adulto_mayor THEN calidad_sueno IS adecuada;
+
+    RULE 8 : IF tiempo_conciliar IS rapido AND edad IS joven THEN calidad_sueno IS adecuada;
+    RULE 9 : IF tiempo_conciliar IS rapido AND edad IS adulto THEN calidad_sueno IS adecuada;
+    RULE 10 : IF tiempo_conciliar IS rapido AND edad IS adulto_mayor THEN calidad_sueno IS adecuada;
+    RULE 11 : IF tiempo_conciliar IS moderado AND edad IS joven THEN calidad_sueno IS adecuada;
+    RULE 12 : IF tiempo_conciliar IS moderado AND edad IS adulto THEN calidad_sueno IS adecuada;
+    RULE 13 : IF tiempo_conciliar IS moderado AND edad IS adulto_mayor THEN calidad_sueno IS adecuada;
+    RULE 14 : IF tiempo_conciliar IS lento AND edad IS joven THEN calidad_sueno IS muy_mala;
+    RULE 15 : IF tiempo_conciliar IS lento AND edad IS adulto THEN calidad_sueno IS muy_mala;
+    RULE 16 : IF tiempo_conciliar IS lento AND edad IS adulto_mayor THEN calidad_sueno IS muy_mala;
+
+    RULE 17 : IF sensacion_descanso IS muy_mal THEN calidad_sueno IS muy_mala;
+    RULE 18 : IF sensacion_descanso IS regular AND edad IS joven THEN calidad_sueno IS mala;
+    RULE 19 : IF sensacion_descanso IS regular AND edad IS adulto THEN calidad_sueno IS mala;
+    RULE 20 : IF sensacion_descanso IS regular AND edad IS adulto_mayor THEN calidad_sueno IS mala;
+    RULE 21 : IF sensacion_descanso IS muy_bien THEN calidad_sueno IS adecuada;
+
+    RULE 22 : IF puntos_preguntas IS muy_mal THEN calidad_sueno IS muy_mala;
+    RULE 23 : IF puntos_preguntas IS regular THEN calidad_sueno IS mala;
+    RULE 24 : IF puntos_preguntas IS muy_bien THEN calidad_sueno IS adecuada;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
